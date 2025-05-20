@@ -1,0 +1,12 @@
+{
+  "name": "chat-iot-dashboard",
+  "version": "0.1.0",
+  "description": "Dashboard with chat side panel for OT managers using Shifu",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
