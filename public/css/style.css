@@ -13,7 +13,7 @@ body {
     letter-spacing: 0.01em;
 }
 
-.navbar {
+.top-navbar {
     width: 100%;
     background: #3b82f6;
     color: #fff;
@@ -25,11 +25,9 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.container {
-    display: flex;
+.layout {
     height: calc(100vh - 4.2rem);
     background: linear-gradient(120deg, #e0e7ff 0%, #f4f7fa 100%);
-    gap: 2.5rem;
     border-radius: 1.2rem;
     box-shadow: 0 4px 24px rgba(59,130,246,0.07);
     margin: 0 1.5vw;
@@ -251,10 +249,6 @@ canvas {
 }
 
 #machine-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
     margin: 2rem auto;
     max-width: 1200px;
 }
@@ -455,9 +449,7 @@ canvas {
   margin: 0 0.1em;
 }
 @media (max-width: 900px) {
-    .container {
-        flex-direction: column;
-        gap: 0;
+    .layout {
         margin: 0;
         border-radius: 0;
     }
@@ -470,7 +462,7 @@ canvas {
         box-shadow: none;
         font-size: 1.08rem;
     }
-    .dashboard h1, .navbar {
+    .dashboard h1, .top-navbar {
         font-size: 2rem;
     }
     .ai-insights {
@@ -480,10 +472,6 @@ canvas {
 }
 
 @media (max-width: 700px) {
-    #machine-list {
-        flex-direction: column;
-        align-items: center;
-    }
     .machine-card {
         max-width: 95vw;
         min-width: 0;
