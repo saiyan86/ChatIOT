@@ -13,6 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
             renderSummaryAndFilters(machines);
             renderMachineList(machines);
             renderAIInsights(machines); // Mock LLM insights
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    window.searchQuery = searchInput.value.toLowerCase();
+                    renderMachineList(window.allMachines);
+                });
+            }
         })
         .catch(err => {
             console.error('Failed to load machines:', err);
@@ -69,9 +76,17 @@ function renderMachineList(machines) {
     if (window.currentFilter && window.currentFilter !== 'All') {
         filtered = machines.filter(m => m.status === window.currentFilter);
     }
+    if (window.searchQuery) {
+        filtered = filtered.filter(m =>
+            m.name.toLowerCase().includes(window.searchQuery) ||
+            m.id.toLowerCase().includes(window.searchQuery)
+        );
+    }
     filtered.forEach(machine => {
+        const col = document.createElement('div');
+        col.className = 'col-md-6 col-xl-4';
         const card = document.createElement('div');
-        card.className = 'machine-card';
+        card.className = 'machine-card card h-100';
         card.innerHTML = `
             <div class="machine-card-header">
                 <span class="machine-name">${machine.name}</span>
@@ -85,10 +100,11 @@ function renderMachineList(machines) {
                     ${machine.dataPoints.map(dp => `<li${isAbnormal(dp) ? ' class=\'abnormal\'' : ''}>${dp.label}: <span class="dp-value">${dp.value}</span> <span class="dp-unit">${dp.unit ?? ''}</span>${isAbnormal(dp) ? ' <span class=\'alert\'>!</span>' : ''}</li>`).join('')}
                 </ul>
             </div>
-            <button class="machine-details-btn">View Details</button>
+            <button class="machine-details-btn btn btn-sm btn-primary mt-auto">View Details</button>
         `;
         card.querySelector('.machine-details-btn').onclick = () => showMaintenanceModal(machine);
-        list.appendChild(card);
+        col.appendChild(card);
+        list.appendChild(col);
     });
 }
 
